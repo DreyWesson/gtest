@@ -1,9 +1,9 @@
 # Project name
-NAME = megaphone
+NAME = webserv 
 
 # Compiler and flags
 CC = c++
-CFLAGS = -Werror -Wall -Wextra -std=c++98 -pedantic -fsanitize=address
+CFLAGS = -Werror -Wall -Wextra -std=c++14 -pedantic -fsanitize=address
 LDFLAGS = -lgtest -lgtest_main -pthread
 RM = rm -rf
 

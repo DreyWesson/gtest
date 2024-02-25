@@ -1,0 +1,29 @@
+// // After parsing headers
+// if (headers.find("Content-Type") != headers.end()) {
+//     std::string contentType = headers["Content-Type"];
+//     if (contentType.find("application/x-www-form-urlencoded") != std::string::npos) {
+//         parseQueryString(requestBody); // Assuming request body contains URL-encoded data
+//     } else if (contentType.find("multipart/form-data") != std::string::npos) {
+//         // Handle multipart form data
+//     } else if (contentType.find("application/json") != std::string::npos) {
+//         // Handle JSON data
+//     }
+// }
+
+// // After parsing headers
+// if (headers.find("Cookie") != headers.end()) {
+//     std::string cookieHeader = headers["Cookie"];
+//     parseCookies(cookieHeader);
+// }
+
+// // After parsing headers
+// if (headers.find("Content-Encoding") != headers.end()) {
+//     std::string contentEncodingHeader = headers["Content-Encoding"];
+//     parseContentEncoding(contentEncodingHeader);
+// }
+
+// // After parsing headers
+// if (headers.find("Transfer-Encoding") != headers.end()) {
+//     std::string transferEncodingHeader = headers["Transfer-Encoding"];
+//     parseTransferEncoding(transferEncodingHeader);
+// }
