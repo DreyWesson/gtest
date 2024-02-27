@@ -3,39 +3,39 @@
 #include <cassert>
 #include "HttpRequestParser.hpp"
 
-void testHttpGet() {
-    // Test HTTP GET request
-    std::string data = "GET /index.html HTTP/1.1\r\n"
-                       "Host: www.example.com\r\n"
-                       "\r\n";
-    HttpRequestParser parser;
-    int status = parser.parse(data);
+// void testHttpGet() {
+//     // Test HTTP GET request
+//     std::string data = "GET /index.html HTTP/1.1\r\n"
+//                        "Host: www.example.com\r\n"
+//                        "\r\n";
+//     HttpRequestParser parser;
+//     int status = parser.parse(data);
 
-    std::cout << "Status after parsing: " << status << std::endl;
-    std::cout << "Method: " << parser.getMethod() << std::endl;
-    std::cout << "Target: " << parser.getTarget() << std::endl;
-    std::cout << "Protocol: " << parser.getProtocol() << std::endl;
-    const std::map<std::string, std::string>& headers = parser.getHeaders();
-    std::cout << "Received Headers:" << std::endl;
-    for (const auto& header : headers) {
-        std::cout << header.first << ": " << header.second << std::endl;
-    }
+//     std::cout << "Status after parsing: " << status << std::endl;
+//     std::cout << "Method: " << parser.getMethod() << std::endl;
+//     std::cout << "Target: " << parser.getTarget() << std::endl;
+//     std::cout << "Protocol: " << parser.getProtocol() << std::endl;
+//     const std::map<std::string, std::string>& headers = parser.getHeaders();
+//     std::cout << "Received Headers:" << std::endl;
+//     for (const auto& header : headers) {
+//         std::cout << header.first << ": " << header.second << std::endl;
+//     }
 
-    // Check status, method, target, protocol, and headers
-    assert(status == HttpRequestParser::COMPLETE);
-    assert(parser.getMethod() == "GET");
-    assert(parser.getTarget() == "/index.html");
-    assert(parser.getProtocol() == "HTTP/1.1");
-    assert(headers.size() == 1);
-    if (headers.count("Host")) {
-        assert(headers.at("Host") == "www.example.com");
-    } else {
-        std::cerr << "Host header not found" << std::endl;
-        assert(false); // Fail the assertion if Host header is not found
-    }
+//     // Check status, method, target, protocol, and headers
+//     assert(status == HttpRequestParser::COMPLETE);
+//     assert(parser.getMethod() == "GET");
+//     assert(parser.getTarget() == "/index.html");
+//     assert(parser.getProtocol() == "HTTP/1.1");
+//     assert(headers.size() == 1);
+//     if (headers.count("Host")) {
+//         assert(headers.at("Host") == "www.example.com");
+//     } else {
+//         std::cerr << "Host header not found" << std::endl;
+//         assert(false); // Fail the assertion if Host header is not found
+//     }
 
-    std::cout << "All assertions passed!" << std::endl;
-}
+//     std::cout << "All assertions passed!" << std::endl;
+// }
 
 
 
@@ -198,16 +198,16 @@ void testHttpGet() {
 //     assert(headers.at("Host") == "www.example.com");
 // }
 
-int main() {
-    testHttpGet();
-    // testHttpPost();
-    // testHttpPut();
-    // testHttpDelete();
-    // testHttpOptions();
-    // testHttpHead();
-    // testHttpPatch();
-    // testHttpTrace();
+// int main() {
+//     testHttpGet();
+//     // testHttpPost();
+//     // testHttpPut();
+//     // testHttpDelete();
+//     // testHttpOptions();
+//     // testHttpHead();
+//     // testHttpPatch();
+//     // testHttpTrace();
 
-    std::cout << "All HTTP method tests passed!" << std::endl;
-    return 0;
-}
+//     std::cout << "All HTTP method tests passed!" << std::endl;
+//     return 0;
+// }

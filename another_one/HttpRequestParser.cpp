@@ -6,9 +6,9 @@
 #include <cctype>
 
 HttpRequestParser::HttpRequestParser() {
+    status = START_LINE;
     bodyOffset = 0;
     chunkSize = 0;
-    status = FIRST_LINE;
     protocol = "HTTP/1.1";
     gettimeofday(&startTimer, NULL);
 }
@@ -18,7 +18,7 @@ HttpRequestParser::~HttpRequestParser() {}
 int HttpRequestParser::parse(std::string &buffer) {
     receivedData += buffer;
     switch (status) {
-        case FIRST_LINE:
+        case START_LINE:
             return parseFirstLine();
         case HEADERS:
             return parseHeaders();
@@ -34,22 +34,6 @@ int HttpRequestParser::parse(std::string &buffer) {
 }
 
 bool HttpRequestParser::isValidURI(const std::string &uri) {
-    // Scheme Validation:
-    //     Ensures the scheme starts with a letter and contains only valid characters as per RFC 3986.
-    // Authority Validation:
-    //     Checks userinfo, host, and port components, ensuring each has valid characters.
-    // Path Validation:
-    //     Validates the path component, ensuring it contains only valid characters.
-    // Query and Fragment Validation:
-    //     Validates the query and fragment components, ensuring they contain only valid characters.
-    // Helper Function isValidChar:
-    //     A lambda function to check if a character is in a given set of valid characters.
-    // URI Components Parsing:
-    //     Splits the URI into scheme, authority, path, query, and fragment components.
-    // Iterating Over Components:
-    //     Checks each character in the URI components against the respective valid character sets.
-    // Return:
-    //     Returns true if all components are valid, otherwise false.
 
     // RFC 3986: URI Generic Syntax
     // Valid characters for different URI components
@@ -192,6 +176,9 @@ int HttpRequestParser::parseFirstLine() {
     return parseHeaders();
 }
 
+
+
+
 int HttpRequestParser::parseHeaders() {
     size_t pos = receivedData.find("\r\n\r\n");
     if (pos == std::string::npos)
@@ -201,11 +188,22 @@ int HttpRequestParser::parseHeaders() {
 
     std::istringstream iss(headersStr);
     std::string line;
-    while (std::getline(iss, line, '\r')) {
+    while (std::getline(iss, line, '\n')) {  // Change delimiter to '\n'
+        // Skip empty lines
+        if (line == "\r")
+            continue;
+
         size_t separator = line.find(": ");
         if (separator != std::string::npos) {
             std::string headerName = line.substr(0, separator);
             std::string headerValue = line.substr(separator + 2);
+
+            // Trim leading and trailing whitespace from header name and value
+            headerName.erase(0, headerName.find_first_not_of(" \t\r\n"));
+            headerName.erase(headerName.find_last_not_of(" \t\r\n") + 1);
+            headerValue.erase(0, headerValue.find_first_not_of(" \t\r\n"));
+            headerValue.erase(headerValue.find_last_not_of(" \t\r\n") + 1);
+
             headers[headerName] = headerValue;
         }
     }
@@ -228,6 +226,14 @@ int HttpRequestParser::parseHeaders() {
     status = BODY;
     return parseBody();
 }
+
+
+
+
+
+
+
+
 
 int HttpRequestParser::parsePreBody() {
     if (receivedData.size() >= contentLength) {
@@ -322,7 +328,7 @@ void HttpRequestParser::reset() {
     contentLength = 0;
     bodyOffset = 0;
     chunkSize = 0;
-    status = FIRST_LINE;
+    status = START_LINE;
 }
 
 HttpRequestParser::ParseStatus HttpRequestParser::getStatus() const {

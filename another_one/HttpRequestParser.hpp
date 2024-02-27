@@ -8,7 +8,7 @@
 class HttpRequestParser {
 public:
     enum ParseStatus {
-        FIRST_LINE,
+        START_LINE,
         HEADERS,
         PREBODY,
         BODY,
