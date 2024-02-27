@@ -52,6 +52,15 @@ private:
     int parsePreBody();
     int parseBody();
     int parseChunk();
+
+
+    struct IsValidChar {
+        const std::string& validSet;
+        IsValidChar(const std::string& set) : validSet(set) {}
+        bool operator()(char c) const {
+            return validSet.find(c) != std::string::npos;
+        }
+    };
 };
 
 #endif
