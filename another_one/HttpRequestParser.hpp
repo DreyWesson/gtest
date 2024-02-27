@@ -45,6 +45,7 @@ private:
     unsigned long chunkSize;
     struct timeval startTimer;
     ParseStatus status;
+    std::string removeWhitespace(const std::string& str);
 
     int parseFirstLine();
     int parseHeaders();
@@ -53,5 +54,5 @@ private:
     int parseChunk();
 };
 
-#endif // HTTP_REQUEST_PARSER_HPP
+#endif
 
