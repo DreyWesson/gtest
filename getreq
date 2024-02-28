@@ -1,0 +1,86 @@
+Basic GET Request
+A simple GET request without any parameters:
+
+http
+Copy code
+GET /hello HTTP/1.1
+Host: www.example.com
+GET Request with Query Parameters
+GET request with query parameters:
+
+http
+Copy code
+GET /search?query=example&page=1 HTTP/1.1
+Host: www.example.com
+GET Request with URL Encoding
+GET request with URL-encoded parameters:
+
+http
+Copy code
+GET /search?q=hello%20world&lang=en HTTP/1.1
+Host: www.example.com
+GET Request with Headers
+GET request with custom headers:
+
+http
+Copy code
+GET /resource HTTP/1.1
+Host: www.example.com
+Authorization: Bearer token123
+User-Agent: MyCustomUserAgent
+GET Request with Path Parameters
+Using path parameters in the URL:
+
+http
+Copy code
+GET /users/1234/profile HTTP/1.1
+Host: www.example.com
+GET Request with Cookies
+GET request with cookies:
+
+http
+Copy code
+GET /dashboard HTTP/1.1
+Host: www.example.com
+Cookie: session_id=abc123; user_pref=dark_mode
+GET Request with Cache Control
+Using Cache-Control header:
+
+http
+Copy code
+GET /api/data HTTP/1.1
+Host: www.example.com
+Cache-Control: no-cache
+GET Request with Range
+Using Range header for partial content:
+
+http
+Copy code
+GET /largefile.zip HTTP/1.1
+Host: www.example.com
+Range: bytes=0-1023
+GET Request with Conditional Headers
+Using If-Modified-Since for conditional requests:
+
+http
+Copy code
+GET /latest-data HTTP/1.1
+Host: www.example.com
+If-Modified-Since: Sat, 26 Feb 2022 12:00:00 GMT
+GET Request with Accept Header
+Requesting specific content types with Accept header:
+
+http
+Copy code
+GET /api/data HTTP/1.1
+Host: www.example.com
+Accept: application/json
+GET Request with Referrer
+Using Referer header to indicate the referring page:
+
+http
+Copy code
+GET /target-page HTTP/1.1
+Host: www.example.com
+Referer: https://www.referer-example.com/previous-page
+These examples cover various scenarios where a GET request can include different types of parameters, headers, and options.

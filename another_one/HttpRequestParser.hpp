@@ -29,7 +29,7 @@ public:
     const std::map<std::string, std::string>& getHeaders() const;
     std::string getRequestBody() const;
     void reset();
-
+    const std::string& getQueryString() const;
     ParseStatus getStatus() const; // Add this line
 
 private:

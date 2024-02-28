@@ -114,12 +114,42 @@ void testHttpPost() {
 }
 
 
+void testHttpPut() {
+    // Test HTTP PUT request
+    std::string data = "PUT /update HTTP/1.1\r\n"
+                       "Host: www.example.com\r\n"
+                       "Content-Type: text/plain\r\n"
+                       "Content-Length: 13\r\n"
+                       "\r\n"
+                       "Hello, World!";
+//    std::string data = "PUT /update_user/123 HTTP/1.1"
+//         "Host: api.example.com"
+//         "Content-Type: application/json"
+//         "Authorization: Bearer your_access_token"
+
+//     "{\"name\": \"John Doe\",\"email\": \"johndoe@example.com\",\"age\": 30,\"active\": true}";
+
+    HttpRequestParser parser;
+    int status = parser.parse(data);
+    assert(status == HttpRequestParser::COMPLETE);
+    assert(parser.getMethod() == "PUT");
+    assert(parser.getTarget() == "/update");
+    assert(parser.getProtocol() == "HTTP/1.1");
+    const std::map<std::string, std::string>& headers = parser.getHeaders();
+    assert(headers.size() == 3);
+    assert(headers.at("Host") == "www.example.com");
+    assert(headers.at("Content-Type") == "text/plain");
+    assert(headers.at("Content-Length") == "13");
+}
+
+
 
 int main() {
     testHttpGet();
     std::cout << "\n\n";
     testHttpPost();
     // std::cout << "\n\n";
+    // testHttpPut();
 
     std::cout << "All HTTP method tests passed!" << std::endl;
     return 0;
